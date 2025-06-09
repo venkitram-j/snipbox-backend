@@ -39,4 +39,4 @@ urlpatterns = [
     path(f'{settings.API_ROOT_URL}/auth/token/refresh/', TokenRefreshView.as_view(), name='token-refresh'),
     
     path(f'{settings.API_ROOT_URL}/users/', UserCreateAPIView.as_view(), name='user-create'),
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
