@@ -23,12 +23,14 @@ class SnippetsAPIView(viewsets.ModelViewSet):
     
     def get_permissions(self):
         permission_classes = [permissions.IsAuthenticated]
-        if self.action in [ "update" ]:
+        if self.action in [ "retrieve", "update", "destroy" ]:
             permission_classes = [IsOwnerOrAdmin]
         return [permission() for permission in permission_classes]
     
     def get_serializer_class(self):
-        if self.action in [ "create", "update" ]:
+        if self.action in [ "retrieve" ]:
+            return SnippetDetailSerializer
+        elif self.action in [ "create", "update" ]:
             return SnippetCreateSerializer
         return SnippetsOverviewSerializer
     
@@ -53,3 +55,10 @@ class SnippetsAPIView(viewsets.ModelViewSet):
         updated_instance = Snippet.objects.get(id=instance.id)
         updated_serializer = SnippetDetailSerializer(updated_instance)
         return Response(updated_serializer.data)
+    
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        self.perform_destroy(instance)
+        queryset = self.filter_queryset(self.get_queryset())
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
