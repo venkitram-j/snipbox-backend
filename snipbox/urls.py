@@ -28,6 +28,7 @@ from snippets.views import SnippetsAPIView, TagAPIView, UserCreateAPIView
 
 
 router = routers.DefaultRouter()
+router.register(r'tags', TagAPIView, basename='tags')
 router.register(r'snippets', SnippetsAPIView, basename='snippets')
 
 urlpatterns = [

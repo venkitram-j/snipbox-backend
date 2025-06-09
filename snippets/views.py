@@ -6,8 +6,8 @@ from rest_framework import status, viewsets, permissions
 from .models import Snippet, Tag
 from .permissions import IsOwnerOrAdmin
 from .serializers import (
-    SnippetsOverviewSerializer, UserCreateSerializer, SnippetDetailSerializer,
-    SnippetCreateSerializer
+    SnippetsOverviewSerializer, SnippetDetailSerializer, UserCreateSerializer, 
+    SnippetCreateSerializer, TagDetailSerializer, TagSnippetDetailSerializer
 )
 
 
@@ -62,3 +62,15 @@ class SnippetsAPIView(viewsets.ModelViewSet):
         queryset = self.filter_queryset(self.get_queryset())
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
+
+
+class TagAPIView(viewsets.ReadOnlyModelViewSet):
+    queryset = Tag.objects.all()
+    permission_classes = [ permissions.IsAuthenticated ]
+    
+    def get_serializer_class(self):
+        if self.action in [ "list" ]:
+            return TagDetailSerializer
+        elif self.action in [ "retrieve" ]:
+            return TagSnippetDetailSerializer
+        return TagDetailSerializer

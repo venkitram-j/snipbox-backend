@@ -40,6 +40,32 @@ class SnippetsOverviewSerializer(serializers.HyperlinkedModelSerializer):
         fields = [ "id", "title", "note", "user", "tags", "created_at", "updated_at", "link" ]
 
 
+class SnippetDetailSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = Snippet
+        fields = [ "title", "note", "created_at", "updated_at" ]
+
+
+class TagDetailSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = Tag
+        fields = [ "id", "title", "created_at", "updated_at" ]
+
+
+class TagSnippetDetailSerializer(serializers.ModelSerializer):
+    snippets = serializers.SerializerMethodField()
+    
+    class Meta:
+        model = Tag
+        fields = [ "id", "title", "created_at", "updated_at", "snippets" ]
+    
+    def get_snippets(self, obj):
+        tag_snippets = obj.tags.all()
+        return [f"{tag_snippet.title}: {tag_snippet.note[:50]}" for tag_snippet in tag_snippets]
+
+
 class SnippetCreateSerializer(serializers.ModelSerializer):
     tags = TagSerializerField(required=False)
 
@@ -58,7 +84,7 @@ class SnippetCreateSerializer(serializers.ModelSerializer):
                 tags.append(tag)
             instance.tags.set(tags)
         return instance
-    
+
     def update(self, instance, validated_data):
         tag_names = validated_data.pop('tags') if "tags" in validated_data else None
         instance = super().update(instance, validated_data)
@@ -69,10 +95,3 @@ class SnippetCreateSerializer(serializers.ModelSerializer):
                 tags.append(tag)
             instance.tags.set(tags)
         return instance
-
-
-class SnippetDetailSerializer(serializers.ModelSerializer):
-    
-    class Meta:
-        model = Snippet
-        fields = [ "title", "note", "created_at", "updated_at" ]
