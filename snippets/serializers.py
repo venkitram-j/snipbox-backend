@@ -58,3 +58,21 @@ class SnippetCreateSerializer(serializers.ModelSerializer):
                 tags.append(tag)
             instance.tags.set(tags)
         return instance
+    
+    def update(self, instance, validated_data):
+        tag_names = validated_data.pop('tags') if "tags" in validated_data else None
+        instance = super().update(instance, validated_data)
+        if tag_names:
+            tags = []
+            for name in tag_names:
+                tag, _ = Tag.objects.get_or_create(title=name)
+                tags.append(tag)
+            instance.tags.set(tags)
+        return instance
+
+
+class SnippetDetailSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = Snippet
+        fields = [ "title", "note", "created_at", "updated_at" ]

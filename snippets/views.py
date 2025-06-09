@@ -6,7 +6,8 @@ from rest_framework import status, viewsets, permissions
 from .models import Snippet, Tag
 from .permissions import IsOwnerOrAdmin
 from .serializers import (
-    SnippetsOverviewSerializer, UserCreateSerializer
+    SnippetsOverviewSerializer, UserCreateSerializer, SnippetDetailSerializer,
+    SnippetCreateSerializer
 )
 
 
@@ -22,10 +23,12 @@ class SnippetsAPIView(viewsets.ModelViewSet):
     
     def get_permissions(self):
         permission_classes = [permissions.IsAuthenticated]
+        if self.action in [ "update" ]:
+            permission_classes = [IsOwnerOrAdmin]
         return [permission() for permission in permission_classes]
     
     def get_serializer_class(self):
-        if self.action in [ "create" ]:
+        if self.action in [ "create", "update" ]:
             return SnippetCreateSerializer
         return SnippetsOverviewSerializer
     
@@ -40,3 +43,13 @@ class SnippetsAPIView(viewsets.ModelViewSet):
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+    
+    def update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+        
+        updated_instance = Snippet.objects.get(id=instance.id)
+        updated_serializer = SnippetDetailSerializer(updated_instance)
+        return Response(updated_serializer.data)
