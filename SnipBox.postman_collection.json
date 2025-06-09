@@ -1,0 +1,426 @@
+{
+	"info": {
+		"_postman_id": "190dc088-89d9-43ee-8716-a0971cb2127f",
+		"name": "SnipBox",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "4531918"
+	},
+	"item": [
+		{
+			"name": "User Create API",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzUwNjEyMTU5LCJpYXQiOjE3NDkzMTU5NjUsImp0aSI6IjVjNGQ4ZDA0ZDc0NzRkNTY5MGJkOTdlNDQzMDRjOTYzIiwidXNlcl9pZCI6MX0.v-XnpVYJ3Bbd6jTQaXyc_m8N2i8nR-P5R6K3WSvTvhc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"anothertestuser\",\n    \"email\": \"testuser@example.com\",\n    \"password\": \"testpass\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/v1/users/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"users",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login API",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/v1/auth/token/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"token",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Refresh Token API",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"refresh\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc0OTQwMjM2NSwiaWF0IjoxNzQ5MzE1OTY1LCJqdGkiOiIyYmM3OGVmYTJjM2E0NWRmOGMyN2RiMTQ2ODAzYmJjMSIsInVzZXJfaWQiOjF9.qc8mHpNXSoYH2FvnEb0hcaP1ow_ugmDzO8JbwEr3szM\",\n    \"access\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzUwNjExOTY1LCJpYXQiOjE3NDkzMTU5NjUsImp0aSI6IjU4YWUxMzc0ODc1MDQ1MWRiZGQ3YjU0N2EyYzY2MTc4IiwidXNlcl9pZCI6MX0.tMf0Cpp-rVs6jlYUGVnkUXq_T8ukWFjzazSkTTnhjwE\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/v1/auth/token/refresh/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"token",
+						"refresh",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Overview API",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzUwNzU5NjAzLCJpYXQiOjE3NDk0NjM2MDMsImp0aSI6IjIzMmU2NTE1ZWVhYjRjZDViYmQxNTBlZjU4MDhhZWU2IiwidXNlcl9pZCI6Mn0.vIAIu3kATeghYm3Yb3ITNJ5Q7RJWIxxQhkALdPd-AFM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8000/api/v1/snippets/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"snippets",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Detail API",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzUwNzU5NTYzLCJpYXQiOjE3NDk0NjM1NjMsImp0aSI6IjU3NTA0MTI4MThjZDQ4MzRhNjQ5ZjZlNjBjZjQxMmNmIiwidXNlcl9pZCI6MX0.bFAtx33PkNeEZV-aFIJFaHkn-1cbl5D2WoOIr9LQuZ0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/v1/snippets/3/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"snippets",
+						"3",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create API",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzUwNzU0NDE0LCJpYXQiOjE3NDk0NTg0MTQsImp0aSI6IjdlOWMwMjAyODFlMzQ4NTk5YmFjNGFmMmY3ODhhODJhIiwidXNlcl9pZCI6MX0.JblztrgKJfk8QuYKqkJcwOEaNQh6qDSFAwcg6dq-Fa0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    {\n        \"title\": \"test for another user\",\n        \"note\": \"this is a snippet to test for another user tags\",\n        \"tags\": [\"test-tag\", \"another\"]\n    }\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/v1/snippets/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"snippets",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update API",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzUwNzU5NTYzLCJpYXQiOjE3NDk0NjM1NjMsImp0aSI6IjU3NTA0MTI4MThjZDQ4MzRhNjQ5ZjZlNjBjZjQxMmNmIiwidXNlcl9pZCI6MX0.bFAtx33PkNeEZV-aFIJFaHkn-1cbl5D2WoOIr9LQuZ0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"changed tags for title\",\n    \"note\": \"this is a snippet to test changes for tags\",\n    \"tags\": [\"test-tag\", \"another tag\", \"another-tag\"]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/v1/snippets/3/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"snippets",
+						"3",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete API",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzUwNjEyMTU5LCJpYXQiOjE3NDkzMTU5NjUsImp0aSI6IjVjNGQ4ZDA0ZDc0NzRkNTY5MGJkOTdlNDQzMDRjOTYzIiwidXNlcl9pZCI6MX0.v-XnpVYJ3Bbd6jTQaXyc_m8N2i8nR-P5R6K3WSvTvhc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8000/api/v1/snippets/1/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"snippets",
+						"1",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Tag List API",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzUwNjEyMTU5LCJpYXQiOjE3NDkzMTU5NjUsImp0aSI6IjVjNGQ4ZDA0ZDc0NzRkNTY5MGJkOTdlNDQzMDRjOTYzIiwidXNlcl9pZCI6MX0.v-XnpVYJ3Bbd6jTQaXyc_m8N2i8nR-P5R6K3WSvTvhc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8000/api/v1/tags/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"tags",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Tag Detail API",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzUwNjEyMTU5LCJpYXQiOjE3NDkzMTU5NjUsImp0aSI6IjVjNGQ4ZDA0ZDc0NzRkNTY5MGJkOTdlNDQzMDRjOTYzIiwidXNlcl9pZCI6MX0.v-XnpVYJ3Bbd6jTQaXyc_m8N2i8nR-P5R6K3WSvTvhc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/tags/2/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"tags",
+						"2",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
