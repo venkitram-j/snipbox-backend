@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 
-from .models import Snippet
+from .models import Snippet, Tag
 
 
 User = get_user_model()
@@ -38,3 +38,23 @@ class SnippetsOverviewSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Snippet
         fields = [ "id", "title", "note", "user", "tags", "created_at", "updated_at", "link" ]
+
+
+class SnippetCreateSerializer(serializers.ModelSerializer):
+    tags = TagSerializerField(required=False)
+
+    class Meta:
+        model = Snippet
+        fields = ['title', 'note', 'tags']
+    
+    def create(self, validated_data):
+        tag_names = validated_data.pop('tags') if "tags" in validated_data else None
+        validated_data["user"] = self.context["user"]
+        instance = super().create(validated_data)
+        if tag_names:
+            tags = []
+            for name in tag_names:
+                tag, _ = Tag.objects.get_or_create(title=name)
+                tags.append(tag)
+            instance.tags.set(tags)
+        return instance
